@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>Nutra Sua Colheita com Força — Rokosan brasil</title>
+    <meta name="description" content="Descubra soluções premium em agricultura e horticultura orgânica para o mercado brasileiro. Fertilizantes naturais que transformam solo e potencializam sua produção. Conheça agora!">
+    <meta name="keywords" content="agricultura e horticultura, fertilizante orgânico, nutrição de plantas, agricultura sustentável, horticultura brasil">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: '86fa6bbd-ab5a-4b56-bcc4-ef2aa1eb0e69',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+    <meta property="og:title" content="Nutra Sua Colheita com Força — Rokosan brasil">
+    <meta property="og:description" content="Descubra soluções premium em agricultura e horticultura orgânica para o mercado brasileiro. Fertilizantes naturais que transformam solo e potencializam sua produção. Conheça agora!">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Nutra Sua Colheita com Força — Rokosan brasil">
+    <meta name="twitter:description" content="Descubra soluções premium em agricultura e horticultura orgânica para o mercado brasileiro. Fertilizantes naturais que transformam solo e potencializam sua produção. Conheça agora!">
+    <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    .skip-link { position: absolute; left: -9999px; top: 0; padding: 12px 18px; background: var(--bg-dark, #1a1a1a); color: var(--text-light, #fff); font-weight: 600; border-radius: 0 0 8px 0; z-index: 10000; }
+    .skip-link:focus { left: 0; outline: 2px solid var(--ring, #fff); outline-offset: 2px; }
+    :focus-visible { outline: 2px solid var(--ring, currentColor); outline-offset: 3px; }
+  </style>
+
+
+  
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css">
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: var(--text-dark, #333) !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+      [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 10px !important; padding-right: 28px !important; }
+      .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus (exclude catalog sub-menus that use <a> children instead of <li>) */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))):not(:has(> a)), .sub-menu:not(:has(li)):not(:has(> a)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .navbar .sub-menu.mobile-expanded, .nav-menu .sub-menu.mobile-expanded, #navMenu .sub-menu.mobile-expanded { max-height: none !important; overflow-y: visible !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; position: relative !important; min-height: 44px !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; min-width: 0 !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; min-width: 0 !important; padding: 0 !important; line-height: inherit !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu, .navbar li:has(.sub-menu) > .sub-menu, #navMenu li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: auto !important; background: transparent !important; border: none !important; cursor: pointer !important; color: var(--text-dark) !important; position: static !important; flex-shrink: 0 !important; align-self: stretch !important; z-index: 2 !important; padding: 0 !important; margin: 0 !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; color: var(--text-dark) !important; white-space: normal !important; }
+        .sub-menu .zappy-nav-child > a { padding-left: 28px !important; font-size: 0.9em !important; opacity: 0.85 !important; }
+        [dir="rtl"] .sub-menu .zappy-nav-child > a, html[lang="he"] .sub-menu .zappy-nav-child > a, html[lang="ar"] .sub-menu .zappy-nav-child > a { padding-left: 0 !important; padding-right: 28px !important; }
+        .sub-menu .zappy-nav-parent > a { font-weight: 600 !important; }
+        .nav-menu.active, #navMenu.active { max-width: 100vw !important; overflow-x: hidden !important; box-sizing: border-box !important; }
+        .navbar .sub-menu li a, nav.navbar .sub-menu li a, .zappy-products-dropdown .sub-menu a { color: var(--text-dark) !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+
+    <style id="zappy-widget-visibility">
+      html[dir="rtl"] .whatsapp-float { right: 20px !important; left: auto !important; }
+      html[dir="ltr"] .whatsapp-float, html:not([dir]) .whatsapp-float { left: 20px !important; right: auto !important; }
+      html[dir="rtl"] #mic-access-tool-general-button, html[dir="rtl"] .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="rtl"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="rtl"] ._access-icon { left: 20px !important; right: auto !important; }
+      html[dir="ltr"] #mic-access-tool-general-button, html[dir="ltr"] .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool .mic-access-tool-general-button,
+      html[dir="ltr"] #mic-init-access-tool #mic-access-tool-general-button,
+      html[dir="ltr"] ._access-icon,
+      html:not([dir]) #mic-access-tool-general-button, html:not([dir]) .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool .mic-access-tool-general-button,
+      html:not([dir]) #mic-init-access-tool #mic-access-tool-general-button,
+      html:not([dir]) ._access-icon { right: 20px !important; left: auto !important; }
+      @media (max-width: 768px) { .whatsapp-float { display: flex !important; } }
+      @media (min-width: 769px) { .whatsapp-float { display: flex !important; } }
+      @media (max-width: 768px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+      @media (min-width: 769px) {
+        #mic-access-tool-general-button, .mic-access-tool-general-button,
+        #mic-init-access-tool .mic-access-tool-general-button, #mic-init-access-tool #mic-access-tool-general-button,
+        ._access-icon { display: flex !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; }
+        #mic-access-tool-box.opened-mic-access-tool, .mic-access-tool-box.opened-mic-access-tool,
+        #mic-init-access-tool #mic-access-tool-box.opened-mic-access-tool {
+          visibility: visible !important; opacity: 1 !important; pointer-events: auto !important;
+        }
+      }
+    </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+  <nav class="navbar">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display: none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+
+  <button class="phone-header-btn" data-phone="" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="/" class="logo-link"><img class="logo" src="/assets/site-in-cio-image-1.webp" alt="Rokosan  brasil"></a>
+    </div>
+
+    <ul class="nav-menu" id="navMenu"><li><a href="/">Início</a></li><li><a href="/products-applications">Produtos e Aplicações</a></li><li><a href="/about">Sobre Rokosan</a></li></ul>
+
+    <div class="nav-cta-container">
+      <a href="/contact" class="nav-cta-btn">Contacto</a>
+    </div>
+  </div>
+</nav>
+<script>
+
+// Navbar Mobile Menu Toggle and Contrast Fix
+(function() {
+  // Use 'load' event instead of 'DOMContentLoaded' to ensure we run AFTER all other scripts
+  window.addEventListener('load', function() {
+    
+    // FIX MOBILE BUTTON CONTRAST
+    // Detect navbar background color and apply contrasting color to mobile buttons
+    const navbar = document.querySelector('.navbar, nav, header');
+    if (!navbar) {
+      console.log('[Navbar] Navbar element not found');
+      return;
+    }
+    
+    // DECLARE VARIABLES EARLY to avoid Temporal Dead Zone errors
+    // These are used in multiple places below
+    let mobileToggle = document.getElementById('mobileToggle') ||
+                       document.querySelector('.mobile-toggle') ||
+                       document.querySelector('.hamburger') ||
+                       document.querySelector('.hamburger-menu') ||
+                       document.querySelector('.menu-toggle') ||
+                       document.querySelector('.burger-menu') ||
+                       document.querySelector('[aria-label="Menu"]') ||
+                       document.querySelector('[aria-label="תפריט"]');
+    
+    const phoneBtn = document.querySelector('.phone-header-btn');
+    
+    const computedStyle = window.getComputedStyle(navbar);
+    let bgColor = computedStyle.backgroundColor;
+    
+    console.log('[Navbar] Initial navbar background:', bgColor);
+    
+    // Check if background is transparent or rgba with 0 alpha
+    const isTransparent = bgColor === 'transparent' || 
+                         bgColor === 'rgba(0, 0, 0, 0)' ||
+                         (bgColor.startsWith('rgba') && bgColor.includes(', 0)'));
+    
+    if (isTransparent) {
+      // Check for background-image or gradient
+      const bgImage = computedStyle.backgroundImage;
+      if (bgImage && bgImage !== 'none') {
+        console.log('[Navbar] Navbar has background image/gradient, using dark text');
+        bgColor = 'rgb(240, 240, 240)'; // Assume light background
+      } else {
+        // Transparent navbar - check body background
+        const bodyBg = window.getComputedStyle(document.body).backgroundColor;
+        console.log('[Navbar] Navbar transparent, using body background:', bodyBg);
+        bgColor = bodyBg;
+      }
+    }
+    
+    // Calculate luminance to determine if background is light or dark
+    const rgb = bgColor.match(/\d+/g);
+    if (rgb && rgb.length >= 3) {
+      const r = parseInt(rgb[0]);
+      const g = parseInt(rgb[1]);
+      const b = parseInt(rgb[2]);
+      const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+      
+      // Mobile button colors are set by Claude's AI-generated CSS (same as .nav-menu a)
+      // No dynamic color overrides needed - colors come from the generated navbar CSS
+      console.log('[Navbar] Mobile button colors preserved from Claude CSS (luminance:', luminance.toFixed(2) + ')');
+      
+      // FIX ICON SIZES - Ensure SVGs are properly sized and visible
+      // INJECT CRITICAL CSS TO OVERRIDE ANY CONFLICTING RULES
+      const criticalCSS = document.createElement('style');
+      criticalCSS.id = 'zappy-mobile-nav-fix';
+      const htmlLang = document.documentElement.lang || 'en';
+      const htmlDir = document.documentElement.dir || 'ltr';
+      // Check both dir attribute AND lang for RTL detection
+      // dir="rtl" is the most reliable indicator
+      const isRTL = htmlDir === 'rtl' || htmlLang === 'he' || htmlLang === 'ar';
+      
+      criticalCSS.textContent = `
+        /* Hide mobile buttons on desktop, show only on mobile */
+        @media (min-width: 769px) {
+          .mobile-toggle,
+          .phone-header-btn {
+            display: none !important;
+          }
+        }
+        
+        /* Show and position mobile buttons correctly on mobile */
+        @media (max-width: 768px) {
+          .navbar,
+          nav.navbar {
+            min-height: 70px !important;
+          }
+
+          .mobile-toggle,
+          .phone-header-btn {
+            position: absolute !important;
+            top: 0 !important;
+            bottom: 0 !important;
+            margin-top: auto !important;
+            margin-bottom: auto !important;
+            transform: none !important;
+            z-index: 1001 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 36px !important;
+            height: 36px !important;
+            border-radius: 50% !important;
+            border: none !important;
+            cursor: pointer !important;
+            padding: 6px !important;
+            background: none !important;
+            color: var(--nav-text, var(--text-dark)) !important;
+            touch-action: manipulation !important;
+            -webkit-tap-highlight-color: transparent !important;
+          }
+
+          html[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          body[data-zappy-site-type="ecommerce"] .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] header .phone-header-btn,
+          html[data-zappy-site-type="ecommerce"] nav .phone-header-btn {
+            display: none !important;
+            visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            min-width: 0 !important;
+            overflow: hidden !important;
+          }
+          
+          /* LTR positioning (default): hamburger LEFT, phone RIGHT */
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .mobile-toggle,
+          html[dir="ltr"] .mobile-toggle {
+            left: 12px !important;
+            right: auto !important;
+          }
+          html:not([dir="rtl"]):not([lang="he"]):not([lang="ar"]) .phone-header-btn,
+          html[dir="ltr"] .phone-header-btn {
+            right: 12px !important;
+            left: auto !important;
+          }
+          
+          /* RTL positioning: hamburger RIGHT, phone LEFT */
+          html[dir="rtl"] .mobile-toggle,
+          html[lang="he"] .mobile-toggle,
+          html[lang="ar"] .mobile-toggle {
+            right: 12px !important;
+            left: auto !important;
+          }
+          html[dir="rtl"] .phone-header-btn,
+          html[lang="he"] .phone-header-btn,
+          html[lang="ar"] .phone-header-btn {
+            left: 12px !important;
+            right: auto !important;
+          }
+          
+          /* CRITICAL: Ensure nav-container has min-height on mobile */
+          /* All children are positioned absolutely/fixed on mobile, so height:auto collapses to 0 */
+          .nav-container {
+            min-height: 70px !important;
+            position: relative !important;
+          }
+          
+          /* Ensure SVG icons are properly sized and inherit color */
+          .mobile-toggle svg,
+          .phone-header-btn svg {
+            width: 24px !important;
+            height: 24px !important;
+            /* Don't force display - let JavaScript control hamburger/close toggle */
+          }
+          
+          /* Reset nav-cta-container on mobile - remove desktop box-shadow/padding */
+          /* that creates a visible ghost box when CTA button is hidden */
+          .nav-cta-container {
+            box-shadow: none !important;
+            padding: 0 !important;
+          }
+          
+          /* Hide nav-cta-container entirely on mobile when there's no lang-switcher */
+          /* (only the CTA button is inside, and it's hidden on mobile) */
+          .nav-cta-container:not(:has(.lang-switcher)) {
+            display: none !important;
+          }
+          
+          /* CRITICAL: Prevent hero image fade gradient from bleeding over headline text */
+          /* The .image-fade-gradient has bottom: -30px (extends below parent) */
+          /* On mobile stacked layout, this overlaps the h1 text below the image */
+          .hero-image-column {
+            overflow: hidden !important;
+          }
+          .image-fade-gradient {
+            bottom: 0 !important;
+          }
+          
+          /* Hide desktop language switcher on mobile - hamburger menu handles it */
+          /* High specificity to override stored CSS */
+          .lang-switcher,
+          .nav-cta-container .lang-switcher,
+          .nav-container .lang-switcher,
+          .navbar .lang-switcher,
+          .navbar .nav-cta-container .lang-switcher {
+            display: none !important;
+          }
+        }
+      `;
+      
+      // Remove existing fix if present and inject new one
+      const existing = document.getElementById('zappy-mobile-nav-fix');
+      if (existing) existing.remove();
+      document.head.appendChild(criticalCSS);
+      
+      console.log('[Navbar] Critical CSS injected for mobile nav positioning');
+      
+      // ONLY apply inline positioning styles on mobile viewport
+      // On desktop, the CSS handles hiding these buttons with display: none
+      // Inline styles were breaking desktop layout by overriding CSS
+      const isMobileViewport = window.innerWidth <= 768;
+      
+      if (mobileToggle) {
+        // Icon sizing applies to all viewports for consistency
+        const hamburgerIcon = mobileToggle.querySelector('.hamburger-icon');
+        const closeIcon = mobileToggle.querySelector('.close-icon');
+        
+        if (hamburgerIcon) {
+          hamburgerIcon.style.setProperty('width', '24px', 'important');
+          hamburgerIcon.style.setProperty('height', '24px', 'important');
+          hamburgerIcon.style.setProperty('display', 'block', 'important'); // Show hamburger by default
+        }
+        if (closeIcon) {
+          closeIcon.style.setProperty('width', '24px', 'important');
+          closeIcon.style.setProperty('height', '24px', 'important');
+          closeIcon.style.setProperty('display', 'none', 'important'); // Hide close icon by default
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          mobileToggle.style.setProperty('position', 'absolute', 'important');
+          mobileToggle.style.setProperty('top', '0', 'important');
+          mobileToggle.style.setProperty('bottom', '0', 'important');
+          mobileToggle.style.setProperty('margin-top', 'auto', 'important');
+          mobileToggle.style.setProperty('margin-bottom', 'auto', 'important');
+          mobileToggle.style.setProperty('transform', 'none', 'important');
+          mobileToggle.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          
+          console.log('[Navbar] Mobile toggle positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          mobileToggle.style.removeProperty('position');
+          mobileToggle.style.removeProperty('top');
+          mobileToggle.style.removeProperty('transform');
+          mobileToggle.style.removeProperty('z-index');
+          mobileToggle.style.removeProperty('left');
+          mobileToggle.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared mobile toggle inline positioning');
+        }
+      }
+      
+      if (phoneBtn) {
+        // Icon sizing applies to all viewports
+        const phoneIcon = phoneBtn.querySelector('svg');
+        if (phoneIcon) {
+          phoneIcon.style.width = '24px';
+          phoneIcon.style.height = '24px';
+          phoneIcon.setAttribute('width', '24');
+          phoneIcon.setAttribute('height', '24');
+        }
+        
+        // ONLY set positioning inline styles on mobile
+        if (isMobileViewport) {
+          phoneBtn.style.setProperty('position', 'absolute', 'important');
+          phoneBtn.style.setProperty('top', '0', 'important');
+          phoneBtn.style.setProperty('bottom', '0', 'important');
+          phoneBtn.style.setProperty('margin-top', 'auto', 'important');
+          phoneBtn.style.setProperty('margin-bottom', 'auto', 'important');
+          phoneBtn.style.setProperty('transform', 'none', 'important');
+          phoneBtn.style.setProperty('z-index', '1001', 'important');
+          
+          // Clear any inline left/right so CSS can take over based on html[dir]
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          
+          console.log('[Navbar] Phone button positioning applied (mobile viewport)');
+        } else {
+          // On desktop, clear any positioning styles to let CSS handle it
+          phoneBtn.style.removeProperty('position');
+          phoneBtn.style.removeProperty('top');
+          phoneBtn.style.removeProperty('transform');
+          phoneBtn.style.removeProperty('z-index');
+          phoneBtn.style.removeProperty('left');
+          phoneBtn.style.removeProperty('right');
+          console.log('[Navbar] Desktop viewport - cleared phone button inline positioning');
+        }
+      }
+    } else {
+      console.log('[Navbar] Could not parse background color:', bgColor);
+    }
+    
+    // MOBILE MENU TOGGLE
+    // Re-query in case DOM changed (mobileToggle already declared at top of function)
+    mobileToggle = document.getElementById('mobileToggle') ||
+                   document.querySelector('.mobile-toggle') ||
+                   document.querySelector('.hamburger') ||
+                   document.querySelector('.hamburger-menu') ||
+                   document.querySelector('.menu-toggle') ||
+                   document.querySelector('.burger-menu') ||
+                   document.querySelector('[aria-label="Menu"]') ||
+                   document.querySelector('[aria-label="תפריט"]');
+    
+    // EXPANDED SEARCH: Find nav menu by ID or class
+    const navMenu = document.getElementById('navMenu') ||
+                  document.querySelector('.nav-menu') ||
+                  document.querySelector('.nav-links') ||
+                  document.querySelector('nav ul:not(.submenu)');
+    
+    if (!mobileToggle || !navMenu) {
+      console.log('[Navbar] Mobile toggle or menu not found:', { toggle: !!mobileToggle, menu: !!navMenu });
+      return;
+    }
+    
+    // Ensure navMenu has ID for CSS targeting
+    if (!navMenu.id) {
+      navMenu.id = 'navMenu';
+    }
+    
+    console.log('[Navbar] Initializing mobile menu...');
+    
+    // Remove any existing event listeners by cloning the button
+    const newToggle = mobileToggle.cloneNode(true);
+    mobileToggle.parentNode.replaceChild(newToggle, mobileToggle);
+    
+    // Toggle menu handler (shared by click and touchend)
+    function handleToggle(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      
+      const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+      const closeIcon = newToggle.querySelector('.close-icon');
+      const isActive = navMenu.classList.contains('active');
+      
+      if (isActive) {
+        // Close menu
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed');
+      } else {
+        // Open menu
+        navMenu.classList.add('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'none', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'block', 'important');
+        document.body.style.overflow = 'hidden';
+        console.log('[Navbar] Menu opened');
+      }
+    }
+    
+    // Use click for desktop/emulation and touchend as iOS Safari fallback.
+    // Prevent double-fire with a timestamp guard.
+    var lastToggleTime = 0;
+    function guardedToggle(e) {
+      var now = Date.now();
+      if (now - lastToggleTime < 300) return;
+      lastToggleTime = now;
+      handleToggle(e);
+    }
+    
+    newToggle.addEventListener('click', guardedToggle);
+    newToggle.addEventListener('touchend', guardedToggle);
+    
+    // Close menu when clicking nav links (but NOT dropdown toggles)
+    const navLinks = navMenu.querySelectorAll('a');
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        // Don't close if it's a dropdown child (unless it's a real navigation link)
+        if (this.getAttribute('href') === '#') return;
+        
+        const hamburgerIcon = newToggle.querySelector('.hamburger-icon');
+        const closeIcon = newToggle.querySelector('.close-icon');
+        
+        navMenu.classList.remove('active');
+        if (hamburgerIcon) hamburgerIcon.style.setProperty('display', 'block', 'important');
+        if (closeIcon) closeIcon.style.setProperty('display', 'none', 'important');
+        document.body.style.overflow = '';
+        console.log('[Navbar] Menu closed (link clicked)');
+      });
+    });
+    
+    // DROPDOWN MENU TOGGLE (for mobile and touch devices)
+    var dropdownToggles = navMenu.querySelectorAll('.dropdown-toggle');
+    dropdownToggles.forEach(function(toggle) {
+      toggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parent = this.closest('.nav-dropdown');
+        if (!parent) return;
+        
+        // Close other open dropdowns at the same level
+        var siblings = parent.parentNode.querySelectorAll('.nav-dropdown.open');
+        siblings.forEach(function(sib) {
+          if (sib !== parent) sib.classList.remove('open');
+        });
+        
+        parent.classList.toggle('open');
+        console.log('[Navbar] Dropdown toggled:', parent.classList.contains('open') ? 'open' : 'closed');
+      });
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.nav-dropdown')) {
+        var openDropdowns = document.querySelectorAll('.nav-dropdown.open');
+        openDropdowns.forEach(function(dd) { dd.classList.remove('open'); });
+      }
+    });
+    
+    console.log('[Navbar] Dropdown handlers initialized for ' + dropdownToggles.length + ' dropdowns');
+    
+    // Phone button functionality (phoneBtn already declared at top of function)
+    if (phoneBtn) {
+      phoneBtn.addEventListener('click', function() {
+        // Get phone number from placeholder in page or use default
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        const phoneNumber = phoneLinks.length > 0 
+          ? phoneLinks[0].getAttribute('href').replace('tel:', '')
+          : '[business_phone]';
+        
+        window.location.href = 'tel:' + phoneNumber;
+        console.log('[Navbar] Phone button clicked');
+      });
+    }
+    
+    console.log('[Navbar] Mobile menu initialized successfully');
+    
+    // WhatsApp button visibility is now controlled via CSS (siteSettings).
+    // No JS-based desktop hiding — the button is visible on both mobile and desktop by default.
+  });
+})();
+
+</script>
+  
+  <main id="main">
+    <section data-band-index="0" class="in-cio-hero-section" data-layout-spec="Início-hero" data-hero-type="fullscreen-scrim">
+  <!-- Background Image Layer -->
+  <div class="in-cio-hero-bg">
+    <img loading="eager" fetchpriority="high" data-hero-bg="true" data-placeholder="in-cio-hero-image-1" data-context="Cinematic wide-angle photograph of a Brazilian farmer at sunrise, hands gently applying organic granular fertilizer around lush green herb and vegetable crops in a field. Warm golden morning light, slightly desaturated natural tones, rich soil visible, healthy green plants, peaceful agricultural landscape in background. Photographic style: editorial, calm, human-scale agriculture in Brazil." width="1400" height="900" src="/assets/site-in-cio-hero-image-1.webp" alt="Agricultor brasileiro aplicando adubo orgânico Rokosan em cultivo de hortaliças ao amanhecer">
+  </div>
+
+  <!-- Scrim Overlay -->
+  <div class="in-cio-hero-scrim" aria-hidden="true"></div>
+
+  <!-- Content Container -->
+  <div class="in-cio-hero-container">
+    <!-- Frosted Card -->
+    <article class="in-cio-hero-card">
+      <span class="in-cio-hero-eyebrow">
+        <svg data-element-type="icon" data-icon-type="svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2C8.5 2 5 5 5 10c0 4 4 8 7 10 3-2 7-6 7-10 0-5-3.5-8-7-8z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>
+        Nutrição Orgânica para o Campo Brasileiro
+      </span>
+
+      <h1 class="in-cio-hero-h1">
+        Fertilidade que nasce<br>
+        <em>da terra, para a terra</em>
+      </h1>
+
+      <h3 class="in-cio-hero-subtitle">
+        A Rokosan traz ao Brasil décadas de expertise israelense em nutrição vegetal orgânica — soluções sustentáveis para agricultores, cooperativas e produtores que cultivam com consciência.
+      </h3>
+
+      <div class="in-cio-hero-ctas">
+        <a href="/contato" class="in-cio-btn-primary">
+          <span>Fale Conosco</span>
+          <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+        <a href="/produtos" class="in-cio-btn-secondary">
+          <span>Ver Produtos</span>
+          <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
+
+      <!-- Trust Badges -->
+      <div class="in-cio-hero-trust">
+        <div class="in-cio-trust-item">
+          <svg data-element-type="icon" data-icon-type="svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>100% Orgânico</span>
+        </div>
+        <div class="in-cio-trust-sep" aria-hidden="true"></div>
+        <div class="in-cio-trust-item">
+          <svg data-element-type="icon" data-icon-type="svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Origem Israel</span>
+        </div>
+        <div class="in-cio-trust-sep" aria-hidden="true"></div>
+        <div class="in-cio-trust-item">
+          <svg data-element-type="icon" data-icon-type="svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>Solo Saudável</span>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Bottom Divider: torn-paper organic curve into light section -->
+  <div class="in-cio-hero-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,90 L0,52 Q60,44 120,50 T240,46 Q300,52 360,44 T480,50 Q540,46 600,52 T720,44 Q780,50 840,46 T960,52 Q1020,44 1080,50 T1200,46 Q1260,52 1320,48 T1440,52 L1440,90 Z" fill="#FAF7F2"></path>
+    </svg>
+  </div>
+</section>
+
+<section data-band-index="1" class="in-cio-benefits-section" data-layout-spec="Início-benefits">
+  <!-- Paper texture overlay -->
+  <div class="in-cio-benefits-texture" aria-hidden="true"></div>
+
+  <!-- Centered intro block -->
+  <div class="in-cio-benefits-container">
+    <div class="in-cio-benefits-intro">
+      <!-- Small leaf divider ornament -->
+      <div class="in-cio-leaf-ornament" aria-hidden="true">
+        <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 160 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="16" x2="56" y2="16" stroke="#6F7B4A" stroke-width="1.5" stroke-opacity="0.45"></line>
+          <path d="M72 4 C76 4 84 12 80 16 C84 20 76 28 72 28 C68 28 60 20 64 16 C60 12 68 4 72 4Z" fill="#6F7B4A" fill-opacity="0.5"></path>
+          <path d="M72 4 L72 28" stroke="#6F7B4A" stroke-width="1" stroke-opacity="0.4"></path>
+          <path d="M64 16 C68 14 76 14 80 16" stroke="#6F7B4A" stroke-width="0.8" stroke-opacity="0.35"></path>
+          <path d="M88 4 C92 4 100 12 96 16 C100 20 92 28 88 28 C84 28 76 20 80 16 C76 12 84 4 88 4Z" fill="#6F7B4A" fill-opacity="0.5"></path>
+          <path d="M88 4 L88 28" stroke="#6F7B4A" stroke-width="1" stroke-opacity="0.4"></path>
+          <line x1="104" y1="16" x2="160" y2="16" stroke="#6F7B4A" stroke-width="1.5" stroke-opacity="0.45"></line>
+        </svg>
+      </div>
+
+      <p class="in-cio-benefits-eyebrow">Por que Rokosan</p>
+      <h2 class="in-cio-benefits-title">Nutrição que respeita a terra<br>e quem cuida dela</h2>
+      <p class="in-cio-benefits-subtitle">Desenvolvida a partir de décadas de pesquisa em agricultura e horticultura, a Rokosan combina ciência israelense de ponta com a realidade do solo brasileiro — para resultados que você vê e sente.</p>
+    </div>
+
+    <!-- 3-card grid -->
+    <div class="in-cio-benefits-grid">
+
+      <!-- Card 1: Organic-first nutrition -->
+      <article class="in-cio-benefit-card">
+        <div class="in-cio-card-icon-wrap">
+          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" width="56" height="56" aria-hidden="true">
+            <circle cx="28" cy="28" r="27" stroke="#6F7B4A" stroke-width="1.5" stroke-opacity="0.2" fill="#6F7B4A" fill-opacity="0.07"></circle>
+            <path d="M28 40 C28 40 16 32 16 23 C16 17.48 21.37 13 28 13 C34.63 13 40 17.48 40 23 C40 32 28 40 28 40Z" stroke="#6F7B4A" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M28 13 L28 40" stroke="#6F7B4A" stroke-width="1.5" stroke-opacity="0.5" stroke-dasharray="3 3"></path>
+            <path d="M22 20 C24 24 26 26 28 28" stroke="#6F7B4A" stroke-width="1.5" stroke-linecap="round"></path>
+            <path d="M34 20 C32 24 30 26 28 28" stroke="#6F7B4A" stroke-width="1.5" stroke-linecap="round"></path>
+          </svg>
+        </div>
+        <div class="in-cio-card-body">
+          <h3 class="in-cio-card-title">Nutrição 100% Orgânica</h3>
+          <p class="in-cio-card-text">Formulações derivadas de fontes naturais que alimentam o solo tanto quanto a planta. Sem químicos agressivos — apenas nutrientes que fortalecem o ecossistema do seu cultivo de forma sustentável e duradoura.</p>
+        </div>
+        <div class="in-cio-card-accent-line"></div>
+      </article>
+
+      <!-- Card 2 (raised/center): Professional & home -->
+      <article class="in-cio-benefit-card in-cio-benefit-card--featured">
+        <div class="in-cio-card-featured-badge">Versátil</div>
+        <div class="in-cio-card-icon-wrap">
+          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" width="56" height="56" aria-hidden="true">
+            <circle cx="28" cy="28" r="27" stroke="#B86B4B" stroke-width="1.5" stroke-opacity="0.2" fill="#B86B4B" fill-opacity="0.07"></circle>
+            <rect x="14" y="30" width="12" height="12" rx="2" stroke="#B86B4B" stroke-width="2" fill="none"></rect>
+            <path d="M20 30 L20 24 C20 20.69 23.13 18 27 18" stroke="#B86B4B" stroke-width="2" stroke-linecap="round"></path>
+            <circle cx="35" cy="20" r="6" stroke="#B86B4B" stroke-width="2" fill="none"></circle>
+            <path d="M35 17 L35 23 M32 20 L38 20" stroke="#B86B4B" stroke-width="1.5" stroke-linecap="round"></path>
+            <path d="M30 36 L42 36 M30 40 L42 40" stroke="#B86B4B" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.5"></path>
+          </svg>
+        </div>
+        <div class="in-cio-card-body">
+          <h3 class="in-cio-card-title">Para Profissionais e Jardineiros</h3>
+          <p class="in-cio-card-text">Da grande lavoura ao vaso na varanda: a linha Rokosan foi pensada para atender tanto produtores rurais e cooperativas quanto famílias que cultivam hortas urbanas e jardins em casa com o mesmo cuidado e eficiência.</p>
+        </div>
+        <div class="in-cio-card-accent-line in-cio-card-accent-line--terracotta"></div>
+      </article>
+
+      <!-- Card 3: International expertise -->
+      <article class="in-cio-benefit-card">
+        <div class="in-cio-card-icon-wrap">
+          <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" width="56" height="56" aria-hidden="true">
+            <circle cx="28" cy="28" r="27" stroke="#8AA6A3" stroke-width="1.5" stroke-opacity="0.2" fill="#8AA6A3" fill-opacity="0.07"></circle>
+            <circle cx="28" cy="28" r="12" stroke="#8AA6A3" stroke-width="2" fill="none"></circle>
+            <path d="M28 16 C28 16 24 22 24 28 C24 34 28 40 28 40" stroke="#8AA6A3" stroke-width="1.5"></path>
+            <path d="M28 16 C28 16 32 22 32 28 C32 34 28 40 28 40" stroke="#8AA6A3" stroke-width="1.5"></path>
+            <path d="M16 28 L40 28" stroke="#8AA6A3" stroke-width="1.5"></path>
+            <path d="M17 22 L39 22 M17 34 L39 34" stroke="#8AA6A3" stroke-width="1" stroke-opacity="0.5"></path>
+            <path d="M26 14 L22 18 M30 14 L34 18" stroke="#8AA6A3" stroke-width="1.5" stroke-linecap="round" stroke-opacity="0.6"></path>
+          </svg>
+        </div>
+        <div class="in-cio-card-body">
+          <h3 class="in-cio-card-title">Expertise Global, Raízes Brasileiras</h3>
+          <p class="in-cio-card-text">Com mais de 30 anos de presença internacional em agricultura e horticultura, a Rokosan adapta sua tecnologia israelense às condições únicas do solo e clima brasileiro — garantindo performance real no campo e no jardim.</p>
+        </div>
+        <div class="in-cio-card-accent-line in-cio-card-accent-line--blue"></div>
+      </article>
+
+    </div>
+  </div>
+
+  <!-- Bottom botanical divider -->
+  <div class="in-cio-benefits-divider-wrapper" aria-hidden="true">
+    <!-- Thin olive botanical line -->
+    <div class="in-cio-benefits-botanical-rule">
+      <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 24" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path d="M0 12 Q100 8 200 12 T400 10 T600 12 T800 10 T1000 12 T1200 10" stroke="#6F7B4A" stroke-width="1" stroke-opacity="0.25" fill="#FAF7F2"></path>
+        <path d="M540 12 C545 6 555 3 560 6 C565 3 575 6 580 12 C575 18 565 21 560 18 C555 21 545 18 540 12Z" fill="#FAF7F2" fill-opacity="0.3"></path>
+        <path d="M560 3 L560 21" stroke="#6F7B4A" stroke-width="0.8" stroke-opacity="0.3"></path>
+        <path d="M548 10 C552 9 568 9 572 10" stroke="#6F7B4A" stroke-width="0.8" stroke-opacity="0.25"></path>
+      </svg>
+    </div>
+    <!-- Color fade toward next section -->
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 L0,20 Q150,10 300,22 T600,16 T900,22 T1200,18 L1200,60 Z" fill="#FAF7F2"></path>
+    </svg>
+  </div>
+
+</section>
+
+<section data-band-index="2" class="in-cio-showcase-section" data-layout-spec="Início-showcase">
+  <!-- Botanical leaf decorative motif -->
+  <svg class="in-cio-showcase-leaf-bg" data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 320 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M160 10 C60 80, 20 200, 60 320 C80 380, 140 410, 160 410 C180 410, 240 380, 260 320 C300 200, 260 80, 160 10 Z" stroke="#6F7B4A" stroke-width="1.5" fill="none" opacity="0.07"></path>
+    <line x1="160" y1="10" x2="160" y2="410" stroke="#6F7B4A" stroke-width="1" opacity="0.05"></line>
+    <line x1="90" y1="120" x2="230" y2="120" stroke="#6F7B4A" stroke-width="0.8" opacity="0.04"></line>
+    <line x1="70" y1="180" x2="250" y2="180" stroke="#6F7B4A" stroke-width="0.8" opacity="0.04"></line>
+    <line x1="60" y1="240" x2="260" y2="240" stroke="#6F7B4A" stroke-width="0.8" opacity="0.04"></line>
+    <line x1="70" y1="300" x2="250" y2="300" stroke="#6F7B4A" stroke-width="0.8" opacity="0.04"></line>
+  </svg>
+
+  <div class="in-cio-showcase-container">
+    <!-- Content Column -->
+    <div class="in-cio-showcase-content">
+      <!-- Small leaf divider ornament -->
+      <div class="in-cio-showcase-ornament" aria-hidden="true">
+        <svg data-no-icon-edit="true" aria-hidden="true" width="80" height="20" viewBox="0 0 80 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="10" x2="28" y2="10" stroke="#6F7B4A" stroke-width="1.2" opacity="0.5"></line>
+          <path d="M34 10 C34 5, 40 2, 40 10 C40 18, 46 15, 46 10" stroke="#6F7B4A" stroke-width="1.2" fill="none" opacity="0.5"></path>
+          <line x1="52" y1="10" x2="80" y2="10" stroke="#6F7B4A" stroke-width="1.2" opacity="0.5"></line>
+        </svg>
+      </div>
+
+      <h2 class="in-cio-showcase-heading">Nutrição Orgânica para Cada Canto do Brasil</h2>
+      <p class="in-cio-showcase-text">Do pequeno vaso na varanda urbana às grandes lavouras cooperativas, o Rokosan acompanha cada etapa do cultivo com fórmulas de origem natural, desenvolvidas para nutrir o solo e fortalecer as plantas de forma equilibrada e sustentável. Trazemos para o mercado brasileiro a experiência de décadas em horticultura e agricultura orgânica, adaptada à riqueza e diversidade do nosso clima tropical.</p>
+
+      <ul class="in-cio-showcase-list">
+        <li class="in-cio-showcase-list-item">
+          <span class="in-cio-showcase-list-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M10 2 C10 2, 4 7, 4 12 C4 15.3 6.7 18 10 18 C13.3 18 16 15.3 16 12 C16 7 10 2 10 2Z" stroke="currentColor" stroke-width="1.5" fill="none"></path>
+              <line x1="10" y1="2" x2="10" y2="18" stroke="currentColor" stroke-width="1" opacity="0.6"></line>
+            </svg>
+          </span>
+          <div class="in-cio-showcase-list-text">
+            <strong>Hortas Domésticas e Varandas Urbanas</strong>
+            <span>Cultivo saudável em pequenos espaços, sem químicos</span>
+          </div>
+        </li>
+        <li class="in-cio-showcase-list-item">
+          <span class="in-cio-showcase-list-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="1.5" fill="none"></circle>
+              <path d="M7 10 C7 7, 10 5, 13 7 C16 9, 14 14, 10 14 C7 14, 6 12, 7 10Z" stroke="currentColor" stroke-width="1" fill="none" opacity="0.6"></path>
+            </svg>
+          </span>
+          <div class="in-cio-showcase-list-text">
+            <strong>Pomares e Fruticultura</strong>
+            <span>Produção de frutas com sabor e qualidade superiores</span>
+          </div>
+        </li>
+        <li class="in-cio-showcase-list-item">
+          <span class="in-cio-showcase-list-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="3" y="8" width="14" height="9" rx="2" stroke="currentColor" stroke-width="1.5" fill="none"></rect>
+              <path d="M6 8 C6 5, 10 3, 14 5" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.6"></path>
+            </svg>
+          </span>
+          <div class="in-cio-showcase-list-text">
+            <strong>Cultivo em Estufas e Ambientes Controlados</strong>
+            <span>Alta performance para horticultura protegida</span>
+          </div>
+        </li>
+        <li class="in-cio-showcase-list-item">
+          <span class="in-cio-showcase-list-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 16 L3 8 L10 3 L17 8 L17 16 Z" stroke="currentColor" stroke-width="1.5" fill="none"></path>
+              <path d="M7 16 L7 11 L13 11 L13 16" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.6"></path>
+            </svg>
+          </span>
+          <div class="in-cio-showcase-list-text">
+            <strong>Viveiros e Produção de Mudas</strong>
+            <span>Enraizamento vigoroso desde os primeiros estágios</span>
+          </div>
+        </li>
+        <li class="in-cio-showcase-list-item">
+          <span class="in-cio-showcase-list-icon" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 12 Q5 6, 10 8 Q15 10, 18 5" stroke="currentColor" stroke-width="1.5" fill="none"></path>
+              <circle cx="10" cy="8" r="2" stroke="currentColor" stroke-width="1.2" fill="none" opacity="0.6"></circle>
+              <path d="M4 16 Q10 13, 16 16" stroke="currentColor" stroke-width="1" fill="none" opacity="0.5"></path>
+            </svg>
+          </span>
+          <div class="in-cio-showcase-list-text">
+            <strong>Fazendas Orgânicas e Cooperativas</strong>
+            <span>Escala produtiva com certificação e sustentabilidade</span>
+          </div>
+        </li>
+      </ul>
+
+      <a href="/produtos" class="in-cio-showcase-cta">
+        Conheça Nossa Linha de Produtos
+        <svg data-element-type="icon" data-icon-type="svg" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 8 L13 8 M9 4 L13 8 L9 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Imagery Column -->
+    <div class="in-cio-showcase-imagery">
+      <div class="in-cio-showcase-imagery-inner">
+        <!-- Dusty blue wash background -->
+        <div class="in-cio-showcase-img-wash" aria-hidden="true"></div>
+
+        <!-- Main large image tile -->
+        <figure class="in-cio-showcase-img-main">
+          <img loading="lazy" decoding="async" data-placeholder="in-cio-showcase-image-1" data-context="Muted documentary-style photography of a lush organic vegetable garden in Brazil — rows of leafy greens, tomatoes, and herbs growing in rich dark soil under warm natural light. A farmer in the background tends the plants. Colors are warm and earthy with a slightly desaturated, editorial quality. Wide landscape composition." width="560" height="420" src="/assets/site-in-cio-showcase-image-1.webp" alt="Horta orgânica brasileira com vegetais e ervas cultivados com fertilizante Rokosan">
+        </figure>
+
+        <!-- Secondary smaller tile peeking from bottom-end corner -->
+        <figure class="in-cio-showcase-img-secondary">
+          <img loading="lazy" decoding="async" data-placeholder="in-cio-showcase-image-2" data-context="Close-up documentary photography of hands gently holding dark organic fertilizer granules above healthy green seedlings in a nursery tray. Warm, soft natural light. Muted earthy tones with a premium gardening journal aesthetic. Portrait orientation." width="220" height="280" src="/assets/site-in-cio-showcase-image-2.webp" alt="Mãos segurando fertilizante orgânico Rokosan sobre mudas saudáveis em viveiro">
+        </figure>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom wave divider transitioning to dark section -->
+  <div class="in-cio-showcase-divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1200 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,90 L0,45 Q80,28 160,42 T320,35 Q400,28 480,44 T640,32 Q720,22 800,40 T960,30 Q1040,22 1120,38 T1200,28 L1200,90 Z" fill="var(--bg-dark)"></path>
+    </svg>
+  </div>
+</section>
+
+<section data-band-index="3" class="in-cio-testimonials-section" data-layout-spec="Início-testimonials">
+  <!-- Decorative botanical leaf background -->
+  <svg class="in-cio-testimonials-section__leaf-bg" data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+    <path d="M200,480 C200,480 20,380 20,200 C20,80 120,20 200,20 C280,20 380,80 380,200 C380,380 200,480 200,480 Z" fill="none" stroke="#F3EBDD" stroke-width="1.5"></path>
+    <path d="M200,480 L200,20" fill="none" stroke="#F3EBDD" stroke-width="0.8"></path>
+    <path d="M200,120 C160,110 80,140 60,180" fill="none" stroke="#F3EBDD" stroke-width="0.8"></path>
+    <path d="M200,180 C150,165 70,195 40,240" fill="none" stroke="#F3EBDD" stroke-width="0.8"></path>
+    <path d="M200,240 C150,230 80,255 50,300" fill="none" stroke="#F3EBDD" stroke-width="0.8"></path>
+    <path d="M200,300 C155,290 95,315 70,355" fill="none" stroke="#F3EBDD" stroke-width="0.8"></path>
+    <path d="M200,120 C240,110 320,140 340,180" fill="none" stroke="#F3EBDD" stroke-width="0.8"></path>
+    <path d="M200,180 C250,165 330,195 360,240" fill="none" stroke="#F3EBDD" stroke-width="0.8"></path>
+    <path d="M200,240 C250,230 320,255 350,300" fill="none" stroke="#F3EBDD" stroke-width="0.8"></path>
+    <path d="M200,300 C245,290 305,315 330,355" fill="none" stroke="#F3EBDD" stroke-width="0.8"></path>
+  </svg>
+
+  <div class="in-cio-testimonials-section__container">
+    <!-- Section header -->
+    <header class="in-cio-testimonials-section__header">
+      <!-- Small leaf divider ornament -->
+      <div class="in-cio-testimonials-section__ornament" aria-hidden="true">
+        <svg data-no-icon-edit="true" aria-hidden="true" width="120" height="20" viewBox="0 0 120 20" xmlns="http://www.w3.org/2000/svg">
+          <line x1="0" y1="10" x2="46" y2="10" stroke="rgba(243,235,221,0.3)" stroke-width="1"></line>
+          <path d="M60,2 C64,2 68,6 68,10 C68,14 64,18 60,18 C56,18 52,14 52,10 C52,6 56,2 60,2 Z M60,4 L60,16 M54,8 C56,7 58,7 60,8 M66,8 C64,7 62,7 60,8 M54,12 C56,13 58,13 60,12 M66,12 C64,13 62,13 60,12" fill="none" stroke="rgba(243,235,221,0.5)" stroke-width="0.8"></path>
+          <line x1="74" y1="10" x2="120" y2="10" stroke="rgba(243,235,221,0.3)" stroke-width="1"></line>
+        </svg>
+      </div>
+      <p class="in-cio-testimonials-section__eyebrow">Histórias Reais</p>
+      <h2 class="in-cio-testimonials-section__title">O que dizem quem cultiva com Rokosan</h2>
+      <p class="in-cio-testimonials-section__subtitle">Da horta doméstica à lavoura cooperativa — agricultores e jardineiros compartilham sua experiência com nutrição orgânica de qualidade.</p>
+    </header>
+
+    <!-- Testimonials grid -->
+    <div class="in-cio-testimonials-section__grid">
+
+      <!-- Card 1 -->
+      <article class="in-cio-testimonials-section__card">
+        <div class="in-cio-testimonials-section__quote-mark" aria-hidden="true">“</div>
+        <blockquote class="in-cio-testimonials-section__quote">
+          <p>Depois de duas safras usando o Rokosan, meu solo ficou visivelmente mais solto e escuro. As plantas brotam com mais vigor e os frutos têm um sabor que os clientes percebem. É a diferença que a nutrição orgânica faz na prática.</p>
+        </blockquote>
+        <footer class="in-cio-testimonials-section__card-footer">
+          <div class="in-cio-testimonials-section__avatar" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="20" fill="rgba(111,123,74,0.25)"></circle>
+              <circle cx="20" cy="16" r="6" fill="none" stroke="rgba(243,235,221,0.6)" stroke-width="1.5"></circle>
+              <path d="M8,36 C8,28 12,24 20,24 C28,24 32,28 32,36" fill="none" stroke="rgba(243,235,221,0.6)" stroke-width="1.5"></path>
+            </svg>
+          </div>
+          <div class="in-cio-testimonials-section__author-info">
+            <span class="in-cio-testimonials-section__author-name">Carlos Mendonça</span>
+            <span class="in-cio-testimonials-section__author-role">Pequeno Produtor Rural</span>
+            <span class="in-cio-testimonials-section__author-context">Horticultura e fruticultura · Interior de SP</span>
+          </div>
+        </footer>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="in-cio-testimonials-section__card in-cio-testimonials-section__card--featured">
+        <div class="in-cio-testimonials-section__quote-mark" aria-hidden="true">“</div>
+        <blockquote class="in-cio-testimonials-section__quote">
+          <p>Comecei a usar na minha horta de apartamento e fiquei impressionada com a facilidade. Sem cheiro forte, sem complicação — só misturar e regar. Meus temperos cresceram muito mais rápido e as folhas ficaram um verde bonito e saudável.</p>
+        </blockquote>
+        <footer class="in-cio-testimonials-section__card-footer">
+          <div class="in-cio-testimonials-section__avatar" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="20" fill="rgba(184,107,75,0.25)"></circle>
+              <circle cx="20" cy="16" r="6" fill="none" stroke="rgba(243,235,221,0.6)" stroke-width="1.5"></circle>
+              <path d="M8,36 C8,28 12,24 20,24 C28,24 32,28 32,36" fill="none" stroke="rgba(243,235,221,0.6)" stroke-width="1.5"></path>
+            </svg>
+          </div>
+          <div class="in-cio-testimonials-section__author-info">
+            <span class="in-cio-testimonials-section__author-name">Ana Paula Ferreira</span>
+            <span class="in-cio-testimonials-section__author-role">Jardineira Doméstica</span>
+            <span class="in-cio-testimonials-section__author-context">Horta urbana em vasos · São Paulo, SP</span>
+          </div>
+        </footer>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="in-cio-testimonials-section__card">
+        <div class="in-cio-testimonials-section__quote-mark" aria-hidden="true">“</div>
+        <blockquote class="in-cio-testimonials-section__quote">
+          <p>Nossa cooperativa testou o Rokosan em três propriedades diferentes durante o ano. Os resultados foram consistentes: solo mais vivo, menor necessidade de insumos químicos e produção certificada que valoriza nosso produto no mercado.</p>
+        </blockquote>
+        <footer class="in-cio-testimonials-section__card-footer">
+          <div class="in-cio-testimonials-section__avatar" aria-hidden="true">
+            <svg data-element-type="icon" data-icon-type="svg" width="40" height="40" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="20" cy="20" r="20" fill="rgba(138,166,163,0.25)"></circle>
+              <circle cx="20" cy="16" r="6" fill="none" stroke="rgba(243,235,221,0.6)" stroke-width="1.5"></circle>
+              <path d="M8,36 C8,28 12,24 20,24 C28,24 32,28 32,36" fill="none" stroke="rgba(243,235,221,0.6)" stroke-width="1.5"></path>
+            </svg>
+          </div>
+          <div class="in-cio-testimonials-section__author-info">
+            <span class="in-cio-testimonials-section__author-name">Roberto Alves</span>
+            <span class="in-cio-testimonials-section__author-role">Representante de Cooperativa</span>
+            <span class="in-cio-testimonials-section__author-context">Agricultura orgânica · Sul de Minas</span>
+          </div>
+        </footer>
+      </article>
+
+    </div>
+
+    <!-- Trust line -->
+    <div class="in-cio-testimonials-section__trust-line">
+      <div class="in-cio-testimonials-section__trust-divider" aria-hidden="true"></div>
+      <div class="in-cio-testimonials-section__trust-items">
+        <div class="in-cio-testimonials-section__trust-item">
+          <svg data-element-type="icon" data-icon-type="svg" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z" fill="rgba(111,123,74,0.8)"></path>
+          </svg>
+          <span>Resultados comprovados em campo</span>
+        </div>
+        <span class="in-cio-testimonials-section__trust-dot" aria-hidden="true"></span>
+        <div class="in-cio-testimonials-section__trust-item">
+          <svg data-element-type="icon" data-icon-type="svg" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 8C8 10 5.9 16.17 3.82 19.82a1 1 0 001.71 1.04C7 18.5 9 17 12 17c3 0 5 1.5 6.47 3.86a1 1 0 001.71-1.04C18.09 16.17 16 10 17 8z" fill="rgba(111,123,74,0.8)"></path>
+            <path d="M12 2C9.24 2 7 4.24 7 7c0 2.76 2.24 5 5 5s5-2.24 5-5c0-2.76-2.24-5-5-5z" fill="rgba(111,123,74,0.8)"></path>
+          </svg>
+          <span>Cultivadores de todo o Brasil</span>
+        </div>
+        <span class="in-cio-testimonials-section__trust-dot" aria-hidden="true"></span>
+        <div class="in-cio-testimonials-section__trust-item">
+          <svg data-element-type="icon" data-icon-type="svg" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" fill="none" stroke="rgba(111,123,74,0.8)" stroke-width="1.8"></path>
+            <path d="M9 12l2 2 4-4" stroke="rgba(111,123,74,0.8)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span>Formulação israelense certificada</span>
+        </div>
+      </div>
+      <div class="in-cio-testimonials-section__trust-divider" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- Bottom diagonal divider -->
+  <div class="in-cio-testimonials-section__divider-wrapper">
+    <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 1440 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,80 L0,55 C240,30 480,10 720,18 C960,26 1200,50 1440,42 L1440,80 Z" fill="#FAF7F2"></path>
+    </svg>
+  </div>
+</section>
+
+<section data-band-index="4" class="in-cio-cta-section" data-layout-spec="Início-cta">
+  <div class="in-cio-cta-outer">
+    <div class="in-cio-cta-panel">
+
+      <!-- Botanical sketch decoration -->
+      <div class="in-cio-cta-botanical" aria-hidden="true">
+        <svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" width="160" height="160">
+          <!-- Main stem -->
+          <path d="M80 155 C80 155 78 120 75 95 C72 70 65 50 60 30" stroke="#6F7B4A" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.45"></path>
+          <!-- Left large leaf -->
+          <path d="M75 95 C60 85 40 75 30 55 C45 60 62 72 75 95Z" stroke="#6F7B4A" stroke-width="1.2" fill="none" opacity="0.4"></path>
+          <path d="M75 95 C55 88 38 78 30 55" stroke="#6F7B4A" stroke-width="0.8" stroke-linecap="round" fill="none" opacity="0.3"></path>
+          <!-- Left leaf veins -->
+          <path d="M65 88 C55 82 44 76 38 65" stroke="#6F7B4A" stroke-width="0.6" fill="none" opacity="0.25"></path>
+          <path d="M70 91 C62 86 52 80 46 70" stroke="#6F7B4A" stroke-width="0.6" fill="none" opacity="0.25"></path>
+          <!-- Right large leaf -->
+          <path d="M78 80 C90 68 112 60 125 40 C108 48 90 60 78 80Z" stroke="#6F7B4A" stroke-width="1.2" fill="none" opacity="0.4"></path>
+          <path d="M78 80 C98 66 114 56 125 40" stroke="#6F7B4A" stroke-width="0.8" stroke-linecap="round" fill="none" opacity="0.3"></path>
+          <!-- Right leaf veins -->
+          <path d="M88 74 C98 65 108 58 116 48" stroke="#6F7B4A" stroke-width="0.6" fill="none" opacity="0.25"></path>
+          <path d="M83 77 C92 68 102 61 110 52" stroke="#6F7B4A" stroke-width="0.6" fill="none" opacity="0.25"></path>
+          <!-- Small upper left leaf -->
+          <path d="M72 65 C60 55 48 48 42 32 C54 40 65 52 72 65Z" stroke="#6F7B4A" stroke-width="1" fill="none" opacity="0.35"></path>
+          <!-- Small upper right leaf -->
+          <path d="M74 48 C84 36 98 28 108 14 C96 24 83 36 74 48Z" stroke="#6F7B4A" stroke-width="1" fill="none" opacity="0.35"></path>
+          <!-- Tiny buds at top -->
+          <circle cx="60" cy="28" r="3" stroke="#6F7B4A" stroke-width="1" fill="none" opacity="0.35"></circle>
+          <circle cx="66" cy="18" r="2" stroke="#6F7B4A" stroke-width="1" fill="none" opacity="0.3"></circle>
+        </svg>
+      </div>
+
+      <!-- Terracotta accent line -->
+      <div class="in-cio-cta-accent-line" aria-hidden="true"></div>
+
+      <!-- Content -->
+      <div class="in-cio-cta-content">
+        <h2 class="in-cio-cta-heading">Pronto para Nutrir Sua Lavoura com o Melhor da Natureza?</h2>
+        <p class="in-cio-cta-body">Fale com a equipe Rokosan Brasil sobre qual solução em nutrição orgânica é ideal para sua cultura, propriedade ou projeto. Atendemos agricultores, cooperativas, distribuidores e produtores em todo o Brasil.</p>
+        <a href="/contato" class="in-cio-cta-btn">
+          <span>Entre em Contato</span>
+          <svg data-element-type="icon" data-icon-type="svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+  </main>
+  
+  <footer class="site-footer"><div class="footer-container"><div class="footer-top"><div class="footer-col footer-brand"><img src="/assets/rokosan-brasil-agriculture-horticulture-logo.webp" alt="Rokosan  brasil" class="logo"><p class="footer-tagline">Nutrição vegetal de excelência para agricultores, cooperativas e cultivadores em todo o Brasil.</p><div class="footer-social"></div></div><div class="footer-col footer-links"><h4 class="footer-heading">Navegação</h4><ul class="footer-nav"><li><a href="/">Início</a></li><li><a href="/products-applications">Produtos e Aplicações</a></li><li><a href="/about">Sobre Rokosan</a></li><li><a href="/contact">Contacto</a></li></ul></div><div class="footer-col footer-contact-col"><h4 class="footer-heading">Fale Connosco</h4><ul class="footer-contact"><li><span class="contact-icon"><i class="fas fa-envelope"></i></span><span class="contact-text"><a href="mailto:[business_email]">[business_email]</a></span></li><li><span class="contact-icon"><i class="fas fa-phone"></i></span><span class="contact-text"><a href="tel:[business_phone]">[business_phone]</a></span></li><li><a href="/"><span class="contact-icon"><i class="fas fa-map-marker-alt"></i></span><span class="contact-text">[business_address]</span></a></li></ul></div></div><div class="footer-divider"></div><div class="footer-bottom"><p class="footer-copy">© 2026 Rokosan  brasil. All rights reserved.</p><div class="footer-legal"><a href="/privacy">Privacy Policy</a><a href="/terms">Terms &amp; Conditions</a><a href="/accessibility">Accessibility</a><a href="https://zappy5.com" target="_blank" class="zappy-attribution">Generated by Zappy</a></div></div></div></footer>
+  
+  
+  
+  <div data-integration="accessibility:toolbar"></div>
+
+    <script src="/script.js"></script>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+</body>
+</html>

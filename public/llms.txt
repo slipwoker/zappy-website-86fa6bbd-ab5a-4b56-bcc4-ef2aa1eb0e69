@@ -1,0 +1,81 @@
+# Rokosan  brasil — Generative Engine Optimization Map
+
+> Rokosan is an established brand in the organic fertilizer and plant nutrition industry, originally from Israel (www.rokosan.co.il). The goal is to adapt their existing website for the Brazilian market, with all content in Brazilian Portuguese, targeting local agricultural and gardening audiences.
+
+---
+
+## Pages
+
+### Início
+https://example.com
+Descubra soluções premium em agricultura e horticultura orgânica para o mercado brasileiro. Fertilizantes naturais que transformam solo e potencializam sua produção. Conheça agora!
+
+### Produtos e Aplicações
+https://example.com/products-applications
+Explore nossa linha completa de produtos para agricultura e horticultura: fertilizantes orgânicos de alta performance para cada cultura e solo. Encontre a solução ideal para sua lavoura!
+
+### Sobre Rokosan
+https://example.com/about
+Conheça a história da Rokosan, marca israelense referência mundial em agricultura e horticultura orgânica, agora adaptada para impulsionar produtores e jardineiros brasileiros. Saiba mais!
+
+### Contacto
+https://example.com/contact
+Entre em contato com a equipe Rokosan brasil e receba orientação especializada em agriculture e horticultura orgânica. Estamos prontos para ajudar sua produção a crescer com mais saúde!
+
+## Legal & Policy
+
+### Privacy Policy
+https://example.com/privacy
+Information about how user data is collected, stored, and protected.
+
+### Terms & Conditions
+https://example.com/terms
+Legal terms describing service usage, rights, and policies.
+
+### Accessibility Statement
+https://example.com/accessibility
+Information about WCAG compliance and accessibility features.
+
+---
+
+## How to Contact Us
+
+- (No contact details configured yet.)
+
+### Contact form
+- URL: https://example.com/contact
+- Endpoint: https://example.com/api/email/contact-form
+- Method: POST
+- Content-Type: application/json
+- Fields:
+  - `name` (text, required)
+  - `email` (email, required)
+  - `phone` (tel)
+  - `message` (textarea, required)
+  - `privacy_consent` (checkbox, required)
+
+---
+
+# Business Context (for LLM understanding)
+
+## About Rokosan  brasil
+Rokosan is an established brand in the organic fertilizer and plant nutrition industry, originally from Israel (www.rokosan.co.il). The goal is to adapt their existing website for the Brazilian market, with all content in Brazilian Portuguese, targeting local agricultural and gardening audiences.
+
+## Target Audience
+- Brazilian market
+- Sustainable Farmers
+- Urban Horticulturalists
+- Organic Crop Producers
+- Agricultural Cooperatives
+- Eco-Conscious Home Gardeners
+
+## Industry
+Agriculture / Horticulture
+
+---
+
+# Machine-readable feeds
+
+- Sitemap (XML): https://example.com/sitemap.xml
+- Robots: https://example.com/robots.txt
+- Flattened page text (for LLMs): https://example.com/llms-full.txt
