@@ -2292,13 +2292,12 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   gap: 20px;
 }
 
-/* ── Eyebrow Label ── */
 .in-cio-hero-section .in-cio-hero-eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 7px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.6875rem;
+  font-size: 0.48rem;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -2312,14 +2311,15 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   flex-shrink: 0;
 }
 
-/* ── H1 ── */
-.in-cio-hero-section .in-cio-hero-h1 {font-family: 'Inter', sans-serif;
-  font-size: clamp(2.1rem, 4vw, 3rem);
+.in-cio-hero-section .in-cio-hero-h1 {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.47rem, 2.8vw, 2.1rem);
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: -0.01em;
   color: var(--text-light);
-  margin: 0;}
+  margin: 0;
+}
 
 .in-cio-hero-section .in-cio-hero-h1 em {
   font-style: italic;
@@ -2327,10 +2327,9 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   -webkit-text-fill-color: #C8D9A0;
 }
 
-/* ── Subtitle ── */
 .in-cio-hero-section .in-cio-hero-subtitle {
   font-family: 'Inter', sans-serif;
-  font-size: 1rem;
+  font-size: 0.7rem;
   font-weight: 400;
   line-height: 1.7;
   color: rgba(243, 235, 221, 0.88);
@@ -2354,7 +2353,7 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   background: var(--primary);
   color: var(--text-light);
   font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.63rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   text-decoration: none;
@@ -2380,7 +2379,7 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   background: transparent;
   color: var(--text-light);
   font-family: 'Inter', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.63rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   text-decoration: none;
@@ -2413,7 +2412,7 @@ html[dir="rtl"] .footer-contact li > a { flex-direction: row !important; }
   align-items: center;
   gap: 5px;
   font-family: 'Inter', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.525rem;
   font-weight: 600;
   letter-spacing: 0.04em;
   color: rgba(243, 235, 221, 0.75);
